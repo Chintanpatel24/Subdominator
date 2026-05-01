@@ -1,4 +1,4 @@
-﻿using DnsClient;
+using DnsClient;
 using Microsoft.Extensions.Configuration;
 using Nager.PublicSuffix;
 using Nager.PublicSuffix.RuleProviders.CacheProviders;
@@ -8,6 +8,7 @@ using Subdominator.Utils;
 using System.Collections.Concurrent;
 using System.Text;
 using System.Text.Json;
+using System.Net;
 
 namespace Subdominator;
 
@@ -400,9 +401,9 @@ public class SubdomainHijack
     // Check an individual fingerprint against and domain name and dns records
     public async Task<(bool, MatchedRecord, MatchedLocation)> IsFingerprintVulnerable(Fingerprint fingerprint, CnameResolutionResult dns, string domain)
     {
-        var isCnameMatch = dns.Cnames.Any(r => fingerprint.Cnames.Any(r.Contains));
-        var isAMatch = dns.A.Any(r => fingerprint.ARecords.Any(r.Contains));
-        var isAaaaMatch = dns.AAAA.Any(r => fingerprint.AAAARecords.Any(r.Contains));
+        var isCnameMatch = dns.Cnames.Any(r => fingerprint.Cnames.Any(fingerprintValue => MatchesFingerprintValue(r, fingerprintValue)));
+        var isAMatch = dns.A.Any(r => fingerprint.ARecords.Any(fingerprintValue => MatchesFingerprintValue(r, fingerprintValue)));
+        var isAaaaMatch = dns.AAAA.Any(r => fingerprint.AAAARecords.Any(fingerprintValue => MatchesFingerprintValue(r, fingerprintValue)));
 
         var matchedRecord = MatchedRecord.None;
         if (isCnameMatch)
@@ -462,7 +463,7 @@ public class SubdomainHijack
                 {
                     foreach (var fingerprintMatch in fingerprint.FingerprintTexts)
                     {
-                        if (!string.IsNullOrWhiteSpace(fingerprintMatch) && responseBody.Contains(fingerprintMatch))
+                        if (ContainsFingerprintText(responseBody, fingerprintMatch))
                         {
                             return (true, matchedRecord, MatchedLocation.HttpBody);
                         }
@@ -706,5 +707,46 @@ public class SubdomainHijack
                 return new HttpResponseMessage();
             }
         }
+    }
+
+    internal static bool MatchesFingerprintValue(string actualValue, string fingerprintValue)
+    {
+        if (string.IsNullOrWhiteSpace(actualValue) || string.IsNullOrWhiteSpace(fingerprintValue))
+        {
+            return false;
+        }
+
+        var normalizedActual = NormalizeDnsValue(actualValue);
+        var normalizedFingerprint = NormalizeDnsValue(fingerprintValue);
+
+        if (LooksLikeIpPrefix(normalizedFingerprint))
+        {
+            return normalizedActual.StartsWith(normalizedFingerprint, StringComparison.OrdinalIgnoreCase);
+        }
+
+        if (normalizedFingerprint.Contains('.'))
+        {
+            return normalizedActual.Equals(normalizedFingerprint, StringComparison.OrdinalIgnoreCase)
+                || normalizedActual.EndsWith($".{normalizedFingerprint}", StringComparison.OrdinalIgnoreCase);
+        }
+
+        return normalizedActual.Contains(normalizedFingerprint, StringComparison.OrdinalIgnoreCase);
+    }
+
+    internal static bool ContainsFingerprintText(string responseBody, string fingerprintMatch)
+    {
+        return !string.IsNullOrWhiteSpace(responseBody)
+            && !string.IsNullOrWhiteSpace(fingerprintMatch)
+            && responseBody.Contains(fingerprintMatch, StringComparison.OrdinalIgnoreCase);
+    }
+
+    private static string NormalizeDnsValue(string value)
+    {
+        return value.Trim().TrimEnd('.');
+    }
+
+    private static bool LooksLikeIpPrefix(string value)
+    {
+        return value.All(character => char.IsDigit(character) || character is '.' or ':' or 'x' or 'X');
     }
 }
