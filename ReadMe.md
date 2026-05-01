@@ -1,21 +1,21 @@
 ![GitHub Actions CI](https://github.com/Stratus-Security/Subdominator/workflows/CI/badge.svg)
 ![GitHub all releases](https://img.shields.io/github/downloads/Stratus-Security/Subdominator/total)
 
-# Subdominator 🚀
+# Subdominator 
 
 ## Welcome to the Subdominator Club!
-Meet **Subdominator**, your new favourite CLI tool for detecting subdomain takeovers. It's designed to be fast, accurate, and dependable, offering [a significant improvement over other available tools](https://www.stratussecurity.com/post/the-ultimate-subdomain-takeover-tool).
+- Meet **Subdominator**, your new favourite CLI tool for detecting subdomain takeovers. It's designed to be fast, accurate, and dependable, offering [a significant improvement over other available tools](https://www.stratussecurity.com/post/the-ultimate-subdomain-takeover-tool).
 
-🔍 Precision and speed are our goal. Subdominator delivers better results without the wait, see the benchmark and feature comparison below for details.
+- Precision and speed are our goal. Subdominator delivers better results without the wait, see the benchmark and feature comparison below for details.
 
-## Installing 🛠️
-To quickly, get up and running, you can download the latest release for [windows](https://github.com/Stratus-Security/Subdominator/releases/latest/download/Subdominator.exe) or [linux](https://github.com/Stratus-Security/Subdominator/releases/latest/download/Subdominator).
+## Installing 
+- To quickly, get up and running, you can download the latest release for [windows](https://github.com/Stratus-Security/Subdominator/releases/latest/download/Subdominator.exe) or [linux](https://github.com/Stratus-Security/Subdominator/releases/latest/download/Subdominator).
 Alternatively, download it via CLI (remove .exe for linux version):
 ```bash
 wget https://github.com/Stratus-Security/Subdominator/releases/latest/download/Subdominator.exe
 ```
 
-## Quick Start 🚦
+## Quick Start 
 To quickly check a list of domains, simply run: 
 ```bash
 Subdominator -l subdomains.txt -o takeovers.txt
@@ -25,7 +25,7 @@ Or to quickly check a single domain, run:
 Subdominator -d sub.example.com
 ```
 
-## Options 🎛️
+## Options 
 ```
 -d, --domain <domain>    A single domain to check
 -l, --list <list>        A list of domains to check (line delimited)
@@ -61,17 +61,17 @@ For example, this shows the same vulnerable domain and another non-vulnerable do
 [-] www.stratussecurity.com
 ```
 
-Finally, if a domain is vulnerable and passes validation with the --validation flag, it will be prepended with a ✅.
+Finally, if a domain is vulnerable and passes validation with the --validation flag, it will be prepended with a .
 These domains have been validated to be vulnerable with the services directly, not just the fingerprint. For example:
 ```
-✅ [Microsoft Azure] example.stratussecurity.com - CNAME: stratus-cdn-stg.azureedge.net
+ [Microsoft Azure] example.stratussecurity.com - CNAME: stratus-cdn-stg.azureedge.net
 ```
 
 ## Demo
 The tool running across 1000 passively gathered subdomains:
 ![Demo](https://raw.githubusercontent.com/Stratus-Security/Subdominator/master/Demo.gif)
 
-## Benchmark 📊
+## Benchmark 
 A benchmark was run across ~100,000 subdomains to compare performance with other popular tools
 | Tool         | Threads | Time Taken         |
 |--------------|---------|--------------------|
@@ -79,7 +79,7 @@ A benchmark was run across ~100,000 subdomains to compare performance with other
 | Subjack      | 50      | 2 hours, 30 minutes, 2 seconds |
 | Subdover     | 50      | 2 hours, 33 minutes, 27 seconds |
 
-## Key Features 🔥
+## Key Features 
 - **Advanced DNS Matching**: Supports DNS matching for CNAME, A, and AAAA records.
 - **Recursive DNS Queries**: Performs in-depth queries to enhance accuracy and reduce false positives.
 - **Intelligent Domain Matching**: Uses a custom `public_suffix_list.dat` for more effective domain matching.
@@ -89,7 +89,7 @@ A benchmark was run across ~100,000 subdomains to compare performance with other
 - **Comprehensive Detection**: Capable of identifying takeovers missed by other tools.
 - **Validation**: Dynamic takeover validation modules to check beyond fingerprints.
 
-## Feature Comparison 🥊
+## Feature Comparison 
 | Feature                          | Subdominator | Subjack | Subdover |
 |----------------------------------|--------------|---------|----------|
 | Advanced DNS Matching            | ✅          | ❌      | ❌       |
@@ -104,7 +104,7 @@ A benchmark was run across ~100,000 subdomains to compare performance with other
 | Fingerprints                     | 97           | 35      | 80       |
 
 ## Contributions
-Got a suggestion, fingerprint, or want to chip in? We're all ears! Open a PR or issue – this will keep subdominator on top! 😄
+Got a suggestion, fingerprint, or want to chip in? We're all ears! Open a PR or issue – this will keep subdominator on top!
 
 ## Fingerprints 
 The fingerprints and services are dynamically pulled from the [CanITakeOverXYZ repo](https://github.com/EdOverflow/can-i-take-over-xyz) as a source of truth. To fill in the gaps and correct incorrect fingerprints, this tool also has its own [custom fingerprints list](https://github.com/Stratus-Security/Subdominator/blob/master/Subdominator/custom_fingerprints.json) which is used in conjunction.
