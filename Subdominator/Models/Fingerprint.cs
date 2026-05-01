@@ -15,7 +15,7 @@ public class Fingerprint
 
     [JsonPropertyName("fingerprint")]
     [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-    public List<string> FingerprintTexts { get; set; }
+   public List<string> FingerprintTexts { get; set; } = new();
 
     [JsonPropertyName("http_status")]
     public int? HttpStatus { get; set; }
