@@ -1,7 +1,20 @@
+<div  align=center>
+
+<pre>
+ 
+███████╗██╗   ██╗██████╗ ██████╗  ██████╗ ███╗   ███╗██╗███╗   ██╗ █████╗ ████████╗ ██████╗ ██████╗
+██╔════╝██║   ██║██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██║████╗  ██║██╔══██╗╚══██╔══╝██╔═══██╗██╔══██╗
+███████╗██║   ██║██████╔╝██║  ██║██║   ██║██╔████╔██║██║██╔██╗ ██║███████║   ██║   ██║   ██║██████╔╝
+╚════██║██║   ██║██╔══██╗██║  ██║██║   ██║██║╚██╔╝██║██║██║╚██╗██║██╔══██║   ██║   ██║   ██║██╔══██╗
+███████║╚██████╔╝██████╔╝██████╔╝╚██████╔╝██║ ╚═╝ ██║██║██║ ╚████║██║  ██║   ██║   ╚██████╔╝██║  ██║
+╚══════╝ ╚═════╝ ╚═════╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
+
+ </pre>
+ 
 ![GitHub Actions CI](https://github.com/Stratus-Security/Subdominator/workflows/CI/badge.svg)
 ![GitHub all releases](https://img.shields.io/github/downloads/Stratus-Security/Subdominator/total)
 
-# Subdominator 
+</div> 
 
 ## Welcome to the Subdominator Club!
 - Meet **Subdominator**, your new favourite CLI tool for detecting subdomain takeovers. It's designed to be fast, accurate, and dependable, offering [a significant improvement over other available tools](https://www.stratussecurity.com/post/the-ultimate-subdomain-takeover-tool).
