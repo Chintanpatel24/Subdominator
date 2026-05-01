@@ -1,4 +1,4 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Subdominator;
 
@@ -15,7 +15,7 @@ public class Fingerprint
 
     [JsonPropertyName("fingerprint")]
     [JsonConverter(typeof(SingleOrArrayConverter<string>))]
-   public List<string> FingerprintTexts { get; set; } = new();
+    public List<string> FingerprintTexts { get; set; } = new();
 
     [JsonPropertyName("http_status")]
     public int? HttpStatus { get; set; }
