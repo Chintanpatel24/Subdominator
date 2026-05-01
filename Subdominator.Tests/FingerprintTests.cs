@@ -17,6 +17,7 @@ public class FingerprintTests
     }
 
     [TestMethod]
+    
     public void ShouldNotHaveDuplicateServices()
     {
         Assert.IsTrue(
